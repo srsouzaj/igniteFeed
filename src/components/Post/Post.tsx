@@ -1,16 +1,36 @@
 import { Avatar } from "../Avatar/Avatar";
 import { Comment } from "../Comment/Comment";
+
+import { format } from "date-fns";
 import styles from "./Post.module.css";
 
-export const Post = () => {
+interface PostInterface {
+  author: {
+    avatarUrl: string;
+    name: string;
+    role: string;
+  };
+  content?: {
+    type: string;
+    content: string;
+  };
+  publishedAt: Date | number;
+}
+
+export const Post = ({ author, content, publishedAt }: PostInterface) => {
+  const publishedDateFormmated = format(
+    publishedAt,
+    "d 'de' LLLL 'às' HH:mm'h'"
+  );
+
   return (
     <article className={styles.post}>
       <header>
         <div className={styles.author}>
-          <Avatar src="https://github.com/srsouzaj.png" />
+          <Avatar src={author.avatarUrl} />
           <div className={styles.authorInfo}>
-            <strong>Jorge de Souza</strong>
-            <span>Software Engineer</span>
+            <strong>{author.name}</strong>
+            <span>{author.role}</span>
           </div>
         </div>
 
@@ -24,10 +44,7 @@ export const Post = () => {
 
       <div className={styles.content}>
         <p>Fala galeraa 👋</p>
-        <p>
-          Acabei de subir mais um projeto no meu portifa. É um projeto que fiz
-          no NLW Return, evento da Rocketseat. O nome do projeto é DoctorCare 🚀
-        </p>
+        <p>{content?.content}</p>
         <p>
           <a href="#">jane.design/doctorcare</a>
         </p>
