@@ -5,7 +5,7 @@ export const Header = () => {
   return (
     <header className={styles.header}>
       <Logo height={32} />
-      <strong>Jorge</strong>
+      <strong>Ignite Feed</strong>
     </header>
   );
 };
