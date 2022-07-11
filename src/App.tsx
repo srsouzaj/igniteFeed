@@ -4,7 +4,7 @@ import styles from "./App.module.css";
 import { Post } from "./components/Post/Post";
 import { Sidebar } from "./components/Sidebar/Sidebar";
 
-const post = [
+const posts = [
   {
     id: 1,
     author: {
@@ -37,7 +37,7 @@ const post = [
       },
       { type: "link", content: "app.rocketseat.com" },
     ],
-    publishedAt: new Date("18-05-03 20:00:03"),
+    publishedAt: new Date("2022-07-11 20:00:03"),
   },
 ];
 
@@ -48,12 +48,13 @@ function App() {
       <div className={styles.wrapper}>
         <Sidebar />
         <main>
-          {post.map((item) => {
+          {posts.map((post) => {
             return (
               <Post
-                author={item.author}
-                publishedAt={item.publishedAt}
-                key={item.id}
+                author={post.author}
+                content={post.content}
+                publishedAt={post.publishedAt}
+                key={post.id}
               />
             );
           })}

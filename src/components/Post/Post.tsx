@@ -10,18 +10,15 @@ interface PostInterface {
     name: string;
     role: string;
   };
-  content?: {
-    type: string;
-    content: string;
-  };
+  content?: Array<{ type: string; content: string }>;
   publishedAt: Date | number;
 }
 
-export const Post = ({ author, content, publishedAt }: PostInterface) => {
-  const publishedDateFormmated = format(
-    publishedAt,
-    "d 'de' LLLL 'às' HH:mm'h'"
-  );
+export const Post = ({ author, publishedAt, content }: PostInterface) => {
+  // const publishedDateFormmated = format(
+  //   publishedAt,
+  //   "d 'de' LLLL 'às' HH:mm'h'"
+  // );
 
   return (
     <article className={styles.post}>
@@ -44,7 +41,7 @@ export const Post = ({ author, content, publishedAt }: PostInterface) => {
 
       <div className={styles.content}>
         <p>Fala galeraa 👋</p>
-        <p>{content?.content}</p>
+        <p>ahhhhhh</p>
         <p>
           <a href="#">jane.design/doctorcare</a>
         </p>
