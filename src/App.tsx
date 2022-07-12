@@ -20,7 +20,7 @@ const posts = [
       },
       { type: "link", content: "jane.design/doctorcare" },
     ],
-    publishedAt: new Date("22-05-03 20:00:03"),
+    publishedAt: new Date("2022-07-11 20:00:03"),
   },
   {
     id: 2,

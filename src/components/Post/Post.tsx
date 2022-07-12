@@ -1,7 +1,8 @@
 import { Avatar } from "../Avatar/Avatar";
 import { Comment } from "../Comment/Comment";
 
-import { format } from "date-fns";
+import { format, formatDistanceToNow } from "date-fns";
+import ptBR from "date-fns/locale/pt-BR";
 import styles from "./Post.module.css";
 
 interface PostInterface {
@@ -11,14 +12,22 @@ interface PostInterface {
     role: string;
   };
   content?: Array<{ type: string; content: string }>;
-  publishedAt: Date | number;
+  publishedAt: Date;
 }
 
 export const Post = ({ author, publishedAt, content }: PostInterface) => {
-  // const publishedDateFormmated = format(
-  //   publishedAt,
-  //   "d 'de' LLLL 'às' HH:mm'h'"
-  // );
+  const publishedDateFormmated = format(
+    publishedAt,
+    "d 'de' MMMM 'às' HH:mm'h'",
+    {
+      locale: ptBR,
+    }
+  );
+
+  const publishedDateRelativeToNow = formatDistanceToNow(publishedAt, {
+    locale: ptBR,
+    addSuffix: true,
+  });
 
   return (
     <article className={styles.post}>
@@ -32,19 +41,26 @@ export const Post = ({ author, publishedAt, content }: PostInterface) => {
         </div>
 
         <time
-          title="06 de Julho de 2022 às 17h09min"
-          dateTime="2022-07-06 17:09:32"
+          title={publishedDateFormmated}
+          dateTime={publishedAt.toISOString()}
         >
-          Publicado há 01h
+          {publishedDateRelativeToNow}
         </time>
       </header>
 
       <div className={styles.content}>
-        <p>Fala galeraa 👋</p>
-        <p>ahhhhhh</p>
-        <p>
-          <a href="#">jane.design/doctorcare</a>
-        </p>
+        {content?.map((line) => {
+          if (line.type === "paragraph") {
+            return <p>{line.content}</p>;
+          } else if (line.type === "link") {
+            return (
+              <p>
+                <a href="#">{line.content}</a>
+              </p>
+            );
+          }
+        })}
+
         <p>
           <a href="#">#novoprojeto</a> <a href="#">#nlw</a>{" "}
           <a href="#">#rocketseat</a>
