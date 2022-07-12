@@ -4,6 +4,7 @@ import { Comment } from "../Comment/Comment";
 import { format, formatDistanceToNow } from "date-fns";
 import ptBR from "date-fns/locale/pt-BR";
 import styles from "./Post.module.css";
+import React from "react";
 
 interface PostInterface {
   author: {
@@ -16,6 +17,26 @@ interface PostInterface {
 }
 
 export const Post = ({ author, publishedAt, content }: PostInterface) => {
+  const [comments, setComments] = React.useState<Array<string>>([
+    "Muito massa!",
+    "Que delicinha!",
+    "Voooa!",
+  ]);
+  const [newCommentText, setNewCommentText] = React.useState<string>("");
+
+  //Functions
+  function handleCreateNewComment() {
+    event.preventDefault();
+
+    setComments([...comments, newCommentText]);
+    setNewCommentText("");
+  }
+
+  function handleNewComment() {
+    setNewCommentText(event.target.value);
+  }
+
+  //Format Dates
   const publishedDateFormmated = format(
     publishedAt,
     "d 'de' MMMM 'às' HH:mm'h'",
@@ -67,19 +88,27 @@ export const Post = ({ author, publishedAt, content }: PostInterface) => {
         </p>
       </div>
 
-      <form className={styles.commentForm}>
+      <form
+        onSubmit={() => handleCreateNewComment()}
+        className={styles.commentForm}
+      >
         <strong>Deixe seu comentário</strong>
 
-        <textarea placeholder="Deixe seu comentário" />
+        <textarea
+          placeholder="Deixe seu comentário"
+          name="comment"
+          value={newCommentText}
+          onChange={() => handleNewComment()}
+        />
         <footer>
           <button type="submit">Publicar</button>
         </footer>
       </form>
 
       <div className={styles.commentList}>
-        <Comment />
-        <Comment />
-        <Comment />
+        {comments.map((comment) => {
+          return <Comment content={comment} />;
+        })}
       </div>
     </article>
   );
