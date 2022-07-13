@@ -5,9 +5,14 @@ import styles from "./Comment.module.css";
 interface Commentinterface {
   content: string;
   avatar?: string;
+  onDeleteComment: (content: string) => void;
 }
 
-export const Comment = ({ content }: Commentinterface) => {
+export const Comment = ({ content, onDeleteComment }: Commentinterface) => {
+  function handleDeleteComment() {
+    onDeleteComment(content);
+  }
+
   return (
     <div className={styles.comment}>
       <Avatar hasBorder={false} src={"https://github.com/srsouzaj.png"} />
@@ -25,7 +30,7 @@ export const Comment = ({ content }: Commentinterface) => {
               </time>
             </div>
 
-            <button title="Deletar comentário">
+            <button onClick={handleDeleteComment} title="Deletar comentário">
               <Trash size={24} />
             </button>
           </header>
