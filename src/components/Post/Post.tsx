@@ -36,8 +36,12 @@ export const Post = ({ author, publishedAt, content }: PostInterface) => {
     setNewCommentText(event.target.value);
   }
 
-  function onDeleteComment(comment: string) {
-    console.log(`Deletar comentário ${comment}`);
+  function DeleteComment(commentToDelete: string) {
+    const commentsWIthoutDeletedOne = comments.filter((comment) => {
+      return comment !== commentToDelete;
+    });
+
+    setComments(commentsWIthoutDeletedOne);
   }
 
   //Format Dates
@@ -115,7 +119,7 @@ export const Post = ({ author, publishedAt, content }: PostInterface) => {
             <Comment
               key={comment}
               content={comment}
-              onDeleteComment={onDeleteComment}
+              onDeleteComment={DeleteComment}
             />
           );
         })}
