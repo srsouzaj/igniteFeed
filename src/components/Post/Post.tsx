@@ -17,11 +17,7 @@ interface PostInterface {
 }
 
 export const Post = ({ author, publishedAt, content }: PostInterface) => {
-  const [comments, setComments] = React.useState<Array<string>>([
-    "Muito massa!",
-    "Que delicinha!",
-    "Voooa!",
-  ]);
+  const [comments, setComments] = React.useState<Array<string>>([]);
   const [newCommentText, setNewCommentText] = React.useState<string>("");
 
   //Functions
