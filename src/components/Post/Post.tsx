@@ -4,7 +4,7 @@ import { Comment } from "../Comment/Comment";
 import { format, formatDistanceToNow } from "date-fns";
 import ptBR from "date-fns/locale/pt-BR";
 import styles from "./Post.module.css";
-import React from "react";
+import React, { ChangeEvent, FormEvent, InvalidEvent } from "react";
 
 interface PostInterface {
   author: {
@@ -25,14 +25,14 @@ export const Post = ({ author, publishedAt, content }: PostInterface) => {
   const [newCommentText, setNewCommentText] = React.useState<string>("");
 
   //Functions
-  function handleCreateNewComment() {
+  function handleCreateNewComment(event: FormEvent) {
     event.preventDefault();
 
     setComments([...comments, newCommentText]);
     setNewCommentText("");
   }
 
-  function handleNewComment() {
+  function handleNewComment(event: ChangeEvent<HTMLTextAreaElement>) {
     event.target.setCustomValidity("");
     setNewCommentText(event.target.value);
   }
@@ -45,7 +45,7 @@ export const Post = ({ author, publishedAt, content }: PostInterface) => {
     setComments(commentsWIthoutDeletedOne);
   }
 
-  function handleNewCommentInvalid() {
+  function handleNewCommentInvalid(event: InvalidEvent<HTMLTextAreaElement>) {
     event.target.setCustomValidity("É necessário enviar uma mensagem");
   }
 
