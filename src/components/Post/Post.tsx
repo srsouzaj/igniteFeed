@@ -33,6 +33,7 @@ export const Post = ({ author, publishedAt, content }: PostInterface) => {
   }
 
   function handleNewComment() {
+    event.target.setCustomValidity("");
     setNewCommentText(event.target.value);
   }
 
@@ -44,7 +45,11 @@ export const Post = ({ author, publishedAt, content }: PostInterface) => {
     setComments(commentsWIthoutDeletedOne);
   }
 
-  //Format Dates
+  function handleNewCommentInvalid() {
+    event.target.setCustomValidity("É necessário enviar uma mensagem");
+  }
+
+  //Format Dates and Controls Variables
   const publishedDateFormmated = format(
     publishedAt,
     "d 'de' MMMM 'às' HH:mm'h'",
@@ -57,6 +62,8 @@ export const Post = ({ author, publishedAt, content }: PostInterface) => {
     locale: ptBR,
     addSuffix: true,
   });
+
+  const isNewCommentEmpty = newCommentText.length === 0;
 
   return (
     <article className={styles.post}>
@@ -96,20 +103,21 @@ export const Post = ({ author, publishedAt, content }: PostInterface) => {
         </p>
       </div>
 
-      <form
-        onSubmit={() => handleCreateNewComment()}
-        className={styles.commentForm}
-      >
+      <form onSubmit={handleCreateNewComment} className={styles.commentForm}>
         <strong>Deixe seu comentário</strong>
 
         <textarea
           placeholder="Deixe seu comentário"
           name="comment"
           value={newCommentText}
-          onChange={() => handleNewComment()}
+          onChange={handleNewComment}
+          required
+          onInvalid={handleNewCommentInvalid}
         />
         <footer>
-          <button type="submit">Publicar</button>
+          <button type="submit" disabled={isNewCommentEmpty}>
+            Publicar
+          </button>
         </footer>
       </form>
 
