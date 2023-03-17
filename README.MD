@@ -1,6 +1,6 @@
 <p align="center">
-  <img alt="Coffee Delivery" src=".github/logo.png" />
-</p>
+  <img alt="logo" src=".github/logo.png" />
+  </p>
 
 ## **💻** Projeto
 
@@ -19,6 +19,7 @@ Para conclusão de módulo, a fim consolidar ainda mais meus conhecimentos sendo
 - [ReactJS](https://pt-br.reactjs.org/)
 - [Immer](https://github.com/immerjs/immer)
 - [Date-fns](https://date-fns.org/)
+- [Phosphor icons](https://phosphoricons.com/)
 
 ## **🔖** Layout
 
